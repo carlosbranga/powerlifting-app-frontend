@@ -1,59 +1,38 @@
-# PowerliftingApp
+# App Powerlifting - Frontend (Angular) 🏋️‍♂️
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+Bem-vindos ao repositório do frontend do nosso sistema de Powerlifting!
+Este projeto foi estruturado com o [Angular CLI](https://github.com/angular/angular-cli). version 20.3.5.
 
-## Development server
+## Como começar (Primeiros Passos)
 
-To start a local development server, run:
+Siga este passo a passo para rodar o projeto na sua máquina pela primeira vez:
 
-```bash
-ng serve
-```
+**1. Clone o repositório:**
+Abra o terminal na pasta onde deseja salvar o projeto e rode:
+`git clone https://github.com/carlosbranga/powerlifting-app-frontend.git`
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+**2. Entre na pasta do projeto:**
+`cd powerlifting-app-frontend`
 
-## Code scaffolding
+**3. Instale as dependências:**
+Isso vai baixar todas as bibliotecas necessárias para o Angular funcionar (pode demorar alguns minutos na primeira vez).
+`npm install`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**4. Rode o servidor de desenvolvimento:**
+`ng serve`
 
-```bash
-ng generate component component-name
-```
+**5. Abra no navegador:**
+Acesse `http://localhost:4200/`. A aplicação vai recarregar automaticamente sempre que você salvar alguma alteração no código.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🛠️ Regras de Versionamento (Git)
 
-## Building
+Para mantermos o código organizado e evitarmos conflitos na hora de juntar os trabalhos, **nunca faça commits direto na branch `main`**.
 
-To build the project run:
+1. Crie uma branch para a sua tarefa. Exemplo: `git checkout -b feat/tela-de-login`
+2. Faça as suas alterações no código.
+3. Suba a sua branch clicando em "Publish branch" no GitHub Desktop (ou `git push origin sua-branch` no terminal).
+4. Abra um **Pull Request (PR)** lá no site do GitHub para o Tech Lead aprovar.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Qualquer dúvida na instalação, mandem no grupo!

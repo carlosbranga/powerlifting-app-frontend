@@ -1,0 +1,287 @@
+<div class="max-w-7xl mx-auto p-4 md:p-6 space-y-6 w-full relative">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div
+            class="bg-neutral-800 p-5 rounded-xl border border-neutral-700 flex items-center justify-between shadow-lg">
+            <div>
+                <p class="text-neutral-400 text-sm font-bold uppercase mb-1">Atletas Ativos</p>
+                <p class="text-3xl font-black text-white">24</p>
+            </div>
+            <div class="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center text-orange-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+        <div
+            class="bg-neutral-800 p-5 rounded-xl border border-neutral-700 flex items-center justify-between shadow-lg">
+            <div>
+                <p class="text-neutral-400 text-sm font-bold uppercase mb-1">Treinos Pendentes</p>
+                <p class="text-3xl font-black text-orange-500">3</p>
+            </div>
+            <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center text-red-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+        </div>
+        <div
+            class="bg-neutral-800 p-5 rounded-xl border border-neutral-700 flex items-center justify-between shadow-lg">
+            <div>
+                <p class="text-neutral-400 text-sm font-bold uppercase mb-1">Próxima Competição</p>
+                <p class="text-xl font-black text-white mt-2">Estadual (45 dias)</p>
+            </div>
+            <div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center text-green-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-neutral-800 rounded-xl border border-neutral-700 shadow-lg overflow-hidden relative z-0">
+        <div class="p-5 border-b border-neutral-700 flex justify-between items-center bg-neutral-800/50">
+            <h3 class="text-xl font-bold">Gerenciar Plantel</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-neutral-900/50 text-neutral-400 text-xs uppercase tracking-wider">
+                        <th class="p-4 font-semibold">Atleta</th>
+                        <th class="p-4 font-semibold">Categoria</th>
+                        <th class="p-4 font-semibold text-center">PRs (S / B / D)</th>
+                        <th class="p-4 font-semibold text-right">Ação</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-700 text-sm">
+                    <tr class="hover:bg-neutral-700/30 transition-colors">
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center font-bold text-xs">
+                                    CA</div>
+                                <div class="font-bold text-white">Carlos Atleta</div>
+                            </div>
+                        </td>
+                        <td class="p-4 text-neutral-300">Até 83 kg</td>
+                        <td class="p-4 text-center font-mono">
+                            <span class="text-white">180</span> <span class="text-neutral-500">/</span>
+                            <span class="text-white">120</span> <span class="text-neutral-500">/</span>
+                            <span class="text-white">210</span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button (click)="abrirModalCriar()"
+                                class="px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded font-bold transition-colors shadow-lg">
+                                Prescrever
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-neutral-700/30 transition-colors">
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-neutral-600 flex items-center justify-center font-bold text-xs">
+                                    JB</div>
+                                <div class="font-bold text-white">João Bruto</div>
+                            </div>
+                        </td>
+                        <td class="p-4 text-neutral-300">Até 105 kg</td>
+                        <td class="p-4 text-center font-mono">
+                            <span class="text-white">220</span> <span class="text-neutral-500">/</span>
+                            <span class="text-white">140</span> <span class="text-neutral-500">/</span>
+                            <span class="text-white">250</span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button (click)="abrirModalVer()"
+                                class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white border border-neutral-600 rounded font-bold transition-colors">
+                                Ver Ficha
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="modalCriarAberto"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity">
+        <div
+            class="bg-neutral-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-neutral-700 shadow-2xl flex flex-col">
+            <div
+                class="p-5 border-b border-neutral-700 flex justify-between items-center sticky top-0 bg-neutral-800 z-10">
+                <div>
+                    <h2 class="text-2xl font-black text-orange-500 italic uppercase tracking-tighter">Montar Ficha</h2>
+                    <p class="text-sm text-neutral-400 mt-1">Atleta: Carlos Atleta</p>
+                </div>
+                <button (click)="fecharModalCriar()"
+                    class="text-neutral-400 hover:text-white transition-colors cursor-pointer p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-5 space-y-6">
+                <div class="bg-neutral-900 p-4 rounded-xl border border-neutral-700/50">
+                    <h3 class="font-bold text-white mb-4">Adicionar Movimento</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="relative w-full">
+                            <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Exercício</label>
+
+                            <div (click)="toggleDropdown()"
+                                class="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-white flex justify-between items-center cursor-pointer hover:border-orange-500 transition-colors">
+                                <span [class.text-neutral-500]="!exercicioSelecionado" class="truncate">
+                                    {{ exercicioSelecionado || 'Buscar movimento...' }}
+                                </span>
+                                <svg class="w-4 h-4 text-neutral-400 ml-2 flex-shrink-0" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+
+                            <div *ngIf="dropdownAberto"
+                                class="absolute z-50 w-full mt-1 bg-neutral-800 border border-neutral-600 rounded-lg shadow-2xl overflow-hidden flex flex-col">
+
+                                <div class="p-2 border-b border-neutral-700 bg-neutral-900 sticky top-0">
+                                    <div class="relative">
+                                        <svg class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                        <input type="text" [(ngModel)]="termoBusca" placeholder="Pesquisar..."
+                                            class="w-full pl-9 pr-3 py-2 bg-neutral-800 border border-neutral-700 rounded text-sm text-white focus:outline-none focus:border-orange-500 transition-colors">
+                                    </div>
+                                </div>
+
+                                <div class="max-h-56 overflow-y-auto pb-2">
+                                    <ng-container *ngFor="let grupo of exerciciosFiltrados">
+                                        <div
+                                            class="px-3 py-2 text-[10px] font-black text-orange-500 bg-neutral-900/80 tracking-widest uppercase sticky top-0 z-10">
+                                            {{ grupo.grupo }}
+                                        </div>
+
+                                        <div *ngFor="let item of grupo.itens" (click)="selecionarExercicio(item)"
+                                            class="px-4 py-2.5 text-sm text-neutral-200 hover:bg-orange-600 hover:text-white cursor-pointer transition-colors"
+                                            [class.bg-neutral-700]="exercicioSelecionado === item">
+                                            {{ item }}
+                                        </div>
+                                    </ng-container>
+
+                                    <div *ngIf="exerciciosFiltrados.length === 0"
+                                        class="p-4 text-center text-sm text-neutral-500 italic">
+                                        Nenhum movimento encontrado...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="dropdownAberto" (click)="toggleDropdown()" class="fixed inset-0 z-40"></div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Séries</label>
+                                <input type="number" placeholder="Ex: 3"
+                                    class="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-white text-center focus:border-orange-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Reps</label>
+                                <input type="number" placeholder="Ex: 5"
+                                    class="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-white text-center focus:border-orange-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 md:col-span-2">
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Carga Sugerida
+                                    (kg)</label>
+                                <input type="number" placeholder="Ex: 150"
+                                    class="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-white text-center focus:border-orange-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">RPE Alvo</label>
+                                <input type="number" placeholder="Ex: 8"
+                                    class="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-white text-center focus:border-orange-500 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="w-full py-2 bg-neutral-700 hover:bg-neutral-600 text-white font-bold rounded-lg transition-colors border border-neutral-600 flex justify-center items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                            </path>
+                        </svg>
+                        Inserir na Ficha
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-5 border-t border-neutral-700 bg-neutral-800/80 sticky bottom-0">
+                <button (click)="fecharModalCriar()"
+                    class="w-full py-3 bg-orange-600 hover:bg-orange-500 text-white font-black text-lg rounded-lg uppercase tracking-wide transition-colors shadow-lg shadow-orange-900/50">
+                    Salvar Treino
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="modalVerAberto"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity">
+        <div
+            class="bg-neutral-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-neutral-700 shadow-2xl flex flex-col">
+            <div
+                class="p-5 border-b border-neutral-700 flex justify-between items-center sticky top-0 bg-neutral-800 z-10">
+                <div>
+                    <h2 class="text-2xl font-black text-white uppercase tracking-tighter">Ficha Atual</h2>
+                    <p class="text-sm text-neutral-400 mt-1">Atleta: João Bruto</p>
+                </div>
+                <button (click)="fecharModalVer()"
+                    class="text-neutral-400 hover:text-white transition-colors cursor-pointer p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-5 space-y-4">
+                <div class="bg-neutral-900 p-4 rounded-lg border border-neutral-700 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-lg text-white">Supino Reto</h4>
+                        <p class="text-sm text-neutral-400">4 Séries x 6 Reps</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-neutral-400 uppercase font-bold">Carga Prescrita</p>
+                        <p class="text-xl font-black text-orange-500">140 kg</p>
+                    </div>
+                </div>
+                <div class="bg-neutral-900 p-4 rounded-lg border border-neutral-700 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-lg text-white">Crucifixo Máquina</h4>
+                        <p class="text-sm text-neutral-400">3 Séries x 12 Reps</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-neutral-400 uppercase font-bold">RPE Alvo</p>
+                        <p class="text-xl font-black text-purple-400">8</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-5 border-t border-neutral-700 bg-neutral-800/80 sticky bottom-0">
+                <button (click)="fecharModalVer()"
+                    class="w-full py-3 bg-neutral-700 hover:bg-neutral-600 text-white font-bold rounded-lg uppercase transition-colors">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

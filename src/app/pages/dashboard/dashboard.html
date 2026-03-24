@@ -1,96 +1,66 @@
-<div class="relative h-screen flex bg-neutral-900 text-white font-sans overflow-hidden">
+<div class="p-4 md:p-8 space-y-6 w-full">
 
-  <div *ngIf="menuAberto" (click)="toggleMenu()" class="fixed inset-0 bg-black/60 z-40 md:hidden transition-opacity"></div>
+  <div>
+    <h3 class="text-2xl font-bold">Evolução de Cargas (Realizado)</h3>
+    <p class="text-neutral-400 text-sm mt-1">Acompanhamento das tuas últimas 4 semanas de SBD.</p>
+  </div>
 
-  <aside 
-    class="fixed inset-y-0 left-0 z-50 w-64 bg-neutral-800 border-r border-neutral-700 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0"
-    [class.-translate-x-full]="!menuAberto">
-    
-    <div class="flex items-center justify-between p-4 border-b border-neutral-700">
-      <h2 class="text-2xl font-black text-orange-500 italic uppercase tracking-tighter">Força Bruta</h2>
-      <button (click)="toggleMenu()" class="md:hidden text-neutral-400 hover:text-white">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-      </button>
+  <div class="bg-neutral-800 p-5 rounded-xl border border-neutral-700 w-full overflow-hidden shadow-lg">
+    <h4 class="font-bold text-lg mb-2 text-orange-500">Evolução no Agachamento</h4>
+    <div class="-ml-4 -mr-2">
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels" [fill]="chartOptions.fill"
+        [colors]="chartOptions.colors" [tooltip]="chartOptions.tooltip">
+      </apx-chart>
+    </div>
+  </div>
+
+  <div class="bg-neutral-800 rounded-xl border border-neutral-700 shadow-lg overflow-hidden mt-6">
+
+    <div
+      class="p-4 border-b border-neutral-700 bg-neutral-800/50 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+      <div>
+        <h4 class="font-bold text-lg text-white">Comparativo Semanal</h4>
+        <p class="text-xs text-neutral-400">Tuas cargas realizadas nas semanas passadas</p>
+      </div>
+
+      <div class="relative">
+        <select [(ngModel)]="semanaSelecionada"
+          class="w-full sm:w-48 px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 cursor-pointer appearance-none">
+          <option *ngFor="let semana of semanasHistorico" [ngValue]="semana">
+            {{ semana.titulo }}
+          </option>
+        </select>
+        <svg class="w-4 h-4 text-orange-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+          stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
     </div>
 
-    <nav class="p-4 space-y-2">
-      <a href="#" class="flex items-center gap-3 px-4 py-3 bg-orange-600/20 text-orange-500 rounded-lg font-bold transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-        Dashboard
-      </a>
-      <a href="#" class="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg font-medium transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-        Meus Treinos
-      </a>
-      <a href="#" class="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg font-medium transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        Histórico
-      </a>
-    </nav>
-  </aside>
+    <div class="p-4 space-y-3 bg-neutral-900/30">
 
-  <main class="flex-1 flex flex-col h-screen overflow-hidden">
-    
-    <header class="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-800 md:justify-end md:px-8">
-      <button (click)="toggleMenu()" class="md:hidden text-neutral-400 hover:text-white">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-      </button>
-      
-      <div class="flex items-center gap-3">
-        <div class="text-right hidden sm:block">
-          <p class="text-sm font-bold">Carlos Atleta</p>
+      <div *ngFor="let ex of semanaSelecionada.exercicios"
+        class="flex flex-col sm:flex-row sm:items-center justify-between bg-neutral-900 p-4 rounded-lg border border-neutral-700/50 hover:border-orange-500/30 transition-colors">
+
+        <div class="mb-2 sm:mb-0">
+          <p class="font-bold text-white">{{ ex.nome }}</p>
+          <p class="text-xs text-neutral-400 mt-1">Séries: <span class="text-white font-bold">{{ ex.series }}</span> |
+            Reps: <span class="text-white font-bold">{{ ex.reps }}</span></p>
         </div>
-        <div class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center font-bold shadow-lg">CA</div>
-      </div>
-    </header>
 
-    <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
-      
-      <div>
-        <h3 class="text-2xl font-bold">Evolução de Cargas (Realizado) 📈</h3>
-        <p class="text-neutral-400 text-sm mt-1">Acompanhamento das tuas últimas 4 semanas de SBD.</p>
-      </div>
-
-      <div class="bg-neutral-800 p-5 rounded-xl border border-neutral-700 w-full overflow-hidden">
-        <h4 class="font-bold text-lg mb-2 text-orange-500">Evolução no Agachamento</h4>
-        <div class="-ml-4 -mr-2"> <apx-chart
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [xaxis]="chartOptions.xaxis"
-            [stroke]="chartOptions.stroke"
-            [dataLabels]="chartOptions.dataLabels"
-            [fill]="chartOptions.fill"
-            [colors]="chartOptions.colors"
-            [tooltip]="chartOptions.tooltip"
-          ></apx-chart>
-        </div>
-      </div>
-
-      <div class="bg-neutral-800 rounded-xl border border-neutral-700 overflow-hidden mt-6">
-        <div class="p-4 border-b border-neutral-700">
-          <h4 class="font-bold text-lg">Último Treino: Força Base</h4>
-          <p class="text-xs text-neutral-400">Comparativo Carga Sugerida vs Carga Realizada</p>
-        </div>
-        <div class="p-4 space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-neutral-900 p-4 rounded-lg border border-neutral-700">
-            <div class="mb-2 sm:mb-0">
-              <p class="font-bold">Levantamento Terra</p>
-              <p class="text-xs text-neutral-400">Séries: 3 | Repetições: 5</p>
-            </div>
-            <div class="flex gap-4 text-sm text-center">
-              <div>
-                <p class="text-neutral-500">Sugerida</p>
-                <p class="font-medium text-neutral-300">200 kg</p>
-              </div>
-              <div>
-                <p class="text-orange-500">Realizada</p>
-                <p class="font-black text-orange-500">205 kg</p>
-              </div>
-            </div>
+        <div
+          class="text-left sm:text-right bg-neutral-800 sm:bg-transparent p-3 sm:p-0 rounded border border-neutral-700 sm:border-none mt-2 sm:mt-0">
+          <p class="text-[10px] text-neutral-500 uppercase tracking-widest font-bold mb-1">Carga Realizada</p>
+          <div class="flex items-baseline sm:justify-end gap-1">
+            <p class="font-black text-2xl text-orange-500">{{ ex.carga }}</p>
+            <p class="text-sm font-bold text-orange-600">kg</p>
           </div>
         </div>
+
       </div>
 
     </div>
-  </main>
+  </div>
+
 </div>

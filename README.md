@@ -53,12 +53,10 @@ Acesse `http://localhost:4201/`. A aplicação vai recarregar automaticamente se
 
 
 
-[Image of Git Feature Branch Workflow diagram]
-
 
 Para mantermos o código organizado e evitarmos conflitos na hora de juntar os trabalhos para a entrega, **nunca faça commits direto na branch `main`**. Além disso, **antes de começar a mexer em qualquer código, tenha sempre a certeza de que você está na branch `develop`**.
 
-1. Vá para a branch principal de desenvolvimento e puxe as últimas atualizações:
+1. Vá para a branch principal de desenvolvimento e puxe as últimas atualizações(se tiver usando o GitHub Desktop é mais fácil de fazer esses passos, não precisa fica digitando comandos):
    `git checkout develop` e depois `git pull`
 2. Crie uma branch para a sua tarefa a partir da develop. Exemplo: `git checkout -b feat/tela-de-login`
 3. Faça as suas alterações no código e salve.

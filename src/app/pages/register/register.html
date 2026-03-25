@@ -1,0 +1,76 @@
+<div class="min-h-screen bg-neutral-900 flex items-center justify-center p-4 font-sans">
+
+    <div class="bg-neutral-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-neutral-700">
+
+        <button (click)="voltar()"
+            class="text-neutral-400 hover:text-orange-500 flex items-center gap-2 mb-6 transition-colors w-fit font-medium cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+            </svg>
+            Voltar pro Login
+        </button>
+
+        <div class="text-center mb-6">
+            <h2 class="text-3xl font-black text-orange-500 italic tracking-tighter uppercase">
+                Novo Atleta
+            </h2>
+            <p class="text-neutral-400 mt-2 font-medium">Crie tua conta para receber teus treinos</p>
+        </div>
+
+        <form class="space-y-4">
+
+            <div>
+                <label for="name" class="block text-sm font-medium mb-1 text-neutral-300">Nome Completo</label>
+                <input type="text" id="name" placeholder="Teu nome de atleta"
+                    class="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium mb-1 text-neutral-300">E-mail</label>
+                <input type="email" id="email" placeholder="atleta@powerlifting.com"
+                    class="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+            </div>
+
+            <div>
+                <label for="weight-class" class="block text-sm font-medium mb-1 text-neutral-300">Categoria de
+                    Peso</label>
+                <select id="weight-class"
+                    class="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors appearance-none">
+                    <option value="" disabled selected>Escolha tua categoria...</option>
+                    <option value="59">Até 59 kg</option>
+                    <option value="66">Até 66 kg</option>
+                    <option value="74">Até 74 kg</option>
+                    <option value="83">Até 83 kg</option>
+                    <option value="93">Até 93 kg</option>
+                    <option value="105">Até 105 kg</option>
+                    <option value="120">Até 120 kg</option>
+                    <option value="120+">+ 120 kg (Pesadão)</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium mb-1 text-neutral-300">Senha</label>
+                <input type="password" id="password" placeholder="Crie uma senha forte"
+                    class="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors">
+            </div>
+
+            <button type="button" (click)="criarConta()"
+                class="w-full mt-6 py-3 px-4 bg-orange-600 hover:bg-orange-500 text-white font-black text-lg rounded-lg uppercase tracking-wide transition-colors duration-200 shadow-lg shadow-orange-900/50">
+                Criar Conta
+            </button>
+
+        </form>
+
+        <div class="text-center mt-6">
+            <p class="text-sm text-neutral-400">
+                Já faz parte do time?
+                <a routerLink="/login"
+                    class="text-orange-500 font-bold hover:text-orange-400 hover:underline transition-colors cursor-pointer">
+                    Faça login
+                </a>
+            </p>
+        </div>
+
+    </div>
+</div>

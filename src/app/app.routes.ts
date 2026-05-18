@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { EsqueciSenha } from './esqueci-senha/esqueci-senha';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Instrutor } from './pages/instrutor/instrutor';
@@ -10,6 +11,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'cadastro', component: Register },
+  { path: 'esqueci-senha', component: EsqueciSenha },
 
   {
     path: '',

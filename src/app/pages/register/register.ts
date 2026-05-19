@@ -1,22 +1,26 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [RouterLink, FormsModule],
   templateUrl: './register.html',
 })
 export class Register {
-  private router = inject(Router);
+  user = { nome: '', email: '', password: '' };
 
-  criarConta() {
-    console.log('Preparando a ficha do monstro...');
+  constructor(private auth: AuthService, private router: Router) { }
 
-    alert('Atleta cadastrado com sucesso!');
-    this.router.navigate(['/login']);
-  }
-
-  voltar() {
-    this.router.navigate(['/login']);
+  fazerRegistro() {
+    this.auth.registrar(this.user).subscribe({
+      next: () => {
+        alert('Conta criada! Faça login agora.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => alert('Erro: ' + (err.error.message || 'Falha no servidor'))
+    });
   }
 }

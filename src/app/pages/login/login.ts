@@ -1,58 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-import { environment } from '../../../enviroments/enviroments';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms'; // Importante para o [(ngModel)]
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, GoogleSigninButtonModule],
+  imports: [RouterLink, FormsModule],
   templateUrl: './login.html',
 })
-export class Login implements OnInit {
+export class Login {
+  // Objeto para capturar o que o usuário digita
+  credenciais = { email: '', password: '' };
 
   constructor(
-    private authService: SocialAuthService,
-    private http: HttpClient,
+    private auth: AuthService,
     private router: Router
   ) { }
 
-  ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      if (user) {
-        console.log('Dados recebidos do Google:', user);
-        this.http.post(`${environment.apiUrl}/login/google`, { google_token: user.idToken })
-          .subscribe({
-            next: (resposta: any) => {
-              console.log('Sucesso! O Laravel autorizou:', resposta);
-              localStorage.setItem('token', resposta.access_token);
-              this.router.navigate(['/dashboard']);
-            },
-            error: (erro) => {
-              console.error('Erro ao validar login no Laravel:', erro);
-            }
-          });
+  fazerLogin() {
+    this.auth.login(this.credenciais).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('token', res.access_token);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error(err);
+        alert(err.error.message || 'Erro ao realizar login!');
       }
     });
-  }
-
-  fazerLoginNormal(emailDigitado: string, senhaDigitada: string) {
-    const credenciais = {
-      email: emailDigitado,
-      password: senhaDigitada
-    };
-
-    this.http.post(`${environment.apiUrl}/login`, credenciais)
-      .subscribe({
-        next: (resposta: any) => {
-          localStorage.setItem('token', resposta.access_token);
-          this.router.navigate(['/dashboard']);
-        },
-        error: (erro) => {
-          console.error('Credenciais inválidas:', erro);
-          alert('E-mail ou senha incorretos!');
-        }
-      });
   }
 }

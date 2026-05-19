@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://app.webdesenvolvedorbrg.com.br/api'
+    apiUrl: 'http://localhost:8000/api'
 };

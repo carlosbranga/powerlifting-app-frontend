@@ -7,11 +7,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgApexchartsModule, FormsModule], // <-- Injeta ele aqui também!
+  imports: [CommonModule, NgApexchartsModule, FormsModule],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
-  // A tua configuração do Gráfico continua igualzinha aqui
   public chartOptions = {
     series: [
       {

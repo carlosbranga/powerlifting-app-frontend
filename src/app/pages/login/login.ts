@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { SocialAuthService, GoogleSigninButtonModule, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { environment } from '../../../enviroments/enviroments';
-
 
 @Component({
   selector: 'app-login',
@@ -28,7 +27,6 @@ export class Login implements OnInit {
             next: (resposta: any) => {
               console.log('Sucesso! O Laravel autorizou:', resposta);
               localStorage.setItem('token', resposta.access_token);
-
               this.router.navigate(['/dashboard']);
             },
             error: (erro) => {
@@ -38,7 +36,6 @@ export class Login implements OnInit {
       }
     });
   }
-
 
   fazerLoginNormal(emailDigitado: string, senhaDigitada: string) {
     const credenciais = {
@@ -57,10 +54,5 @@ export class Login implements OnInit {
           alert('E-mail ou senha incorretos!');
         }
       });
-  }
-
-  entrarComGoogle() {
-    // Isso aqui força a abertura da janela do Google pelo seu botão customizado!
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 }

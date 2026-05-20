@@ -1,73 +1,90 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { environment } from '../../../enviroments/enviroments';
 
 @Component({
   selector: 'app-treino',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './treino.html',
 })
-export class Treino {
-  // Dados do treino muito mais completos agora!
-  exercicios = [
-    {
-      id: 1,
-      nome: 'Agachamento Livre',
-      series: 3,
-      reps: 5,
-      descanso: '3 a 5 min',
-      rpeSugerido: 8,
-      cargaSugerida: 150,
-      cargaAnterior: null,
-      cargaRealizada: null,
-      rpeRealizado: null,
-      observacao: '',
-      concluido: false,
-    },
-    {
-      id: 2,
-      nome: 'Supino Reto Pausado',
-      series: 4,
-      reps: 4,
-      descanso: '3 min',
-      rpeSugerido: 7.5,
-      cargaSugerida: 100,
-      cargaAnterior: 105,
-      cargaRealizada: null,
-      rpeRealizado: null,
-      observacao: '',
-      concluido: false,
-    },
-    {
-      id: 3,
-      nome: 'Levantamento Terra',
-      series: 1,
-      reps: 5,
-      descanso: '5 min',
-      rpeSugerido: 9,
-      cargaSugerida: 180,
-      cargaAnterior: 190,
-      cargaRealizada: null,
-      rpeRealizado: null,
-      observacao: '',
-      concluido: false,
-    },
-  ];
+export class TreinoComponent implements OnInit {
+  treinos: any[] = []; // Lista de todos os treinos do aluno
+  treinoSelecionado: any = null; // Treino que o aluno está executando no momento
+  progresso: number = 0;
 
-  // Calcula a porcentagem do treino pra encher a barrinha
-  get progresso() {
-    const concluidos = this.exercicios.filter((e) => e.concluido).length;
-    return (concluidos / this.exercicios.length) * 100;
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.listarTreinos();
   }
 
-  marcarConcluido(exercicio: any) {
-    // Só deixa concluir se o istepô preencheu a carga de hoje!
-    if (!exercicio.cargaRealizada && !exercicio.concluido) {
-      alert('Opa, monstro! Preenche a carga de hoje antes de marcar como feito!');
+  getHeaders() {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  }
+
+  // Busca todos os treinos do aluno logado
+  listarTreinos() {
+    this.http.get(`${environment.apiUrl}/treinos`, { headers: this.getHeaders() })
+      .subscribe({
+        next: (res: any) => this.treinos = res,
+        error: (err) => console.error('Erro ao buscar treinos', err)
+      });
+  }
+
+  // Abre o treino selecionado buscando os detalhes completos (exercícios) do banco
+  abrirTreino(id: number) {
+    this.http.get(`${environment.apiUrl}/treinos/${id}`, { headers: this.getHeaders() })
+      .subscribe({
+        next: (res: any) => {
+          this.treinoSelecionado = res;
+          this.calcularProgresso();
+        },
+        error: (err) => console.error('Erro ao abrir treino', err)
+      });
+  }
+
+  // Fecha o treino atual e volta para a lista
+  voltarParaLista() {
+    this.treinoSelecionado = null;
+    this.listarTreinos(); // Recarrega a lista para atualizar possíveis status
+  }
+
+  calcularProgresso() {
+    if (!this.treinoSelecionado || !this.treinoSelecionado.itens || this.treinoSelecionado.itens.length === 0) {
+      this.progresso = 0;
       return;
     }
-    exercicio.concluido = !exercicio.concluido;
+    const concluidos = this.treinoSelecionado.itens.filter((item: any) => item.carga_realizada_kg !== null).length;
+    this.progresso = (concluidos / this.treinoSelecionado.itens.length) * 100;
+  }
+
+  marcarConcluido(item: any) {
+    const isDesfazendo = item.carga_realizada_kg !== null;
+
+    const payload = isDesfazendo ? {
+      carga_realizada_kg: null,
+      rpe: null,
+      is_pr: false
+    } : {
+      carga_realizada_kg: item.cargaDigitada || item.carga_sugerida_kg || 0,
+      rpe: item.rpeDigitado || null,
+      is_pr: item.is_pr_marcado || false
+    };
+
+    this.http.put(`${environment.apiUrl}/itens-treino/${item.id}/executar`, payload, { headers: this.getHeaders() })
+      .subscribe({
+        next: () => {
+          item.carga_realizada_kg = payload.carga_realizada_kg;
+          item.rpe = payload.rpe;
+          item.is_pr = payload.is_pr;
+          this.calcularProgresso();
+        },
+        error: (err) => console.error('Erro ao registrar', err)
+      });
   }
 }

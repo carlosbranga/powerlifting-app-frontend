@@ -27,15 +27,15 @@
                 </svg>
                 Dashboard (Aluno)
             </a>
-            <a routerLink="/treino" (click)="toggleMenu()"
-                class="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg font-medium transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                    </path>
-                </svg>
-                Treino do Dia
-            </a>
+                    <a routerLink="/treino" (click)="toggleMenu()"
+            class="flex items-center gap-3 px-4 py-3 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg font-medium transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                </path>
+            </svg>
+            Meus Treinos
+        </a>        
             <a routerLink="/instrutor" (click)="toggleMenu()"
                 class="flex items-center gap-3 px-4 py-3 mt-8 border border-orange-500/30 text-orange-500 hover:bg-orange-500/10 rounded-lg font-bold transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,29 +44,54 @@
                 </svg>
                 Visão do Coach
             </a>
+            @if (user && user.tipo_perfil === 'treinador') {
+                <a routerLink="/gerenciar-exercicios" (click)="toggleMenu()"
+                    class="flex items-center gap-3 px-4 py-3 mt-4 border border-orange-500/30 text-orange-500 hover:bg-orange-500/10 rounded-lg font-bold transition-colors">
+                    Configurar Exercícios
+                </a>
+                <a routerLink="/montar-treino" (click)="toggleMenu()"
+                    class="flex items-center gap-3 px-4 py-3 mt-2 border border-orange-500/30 text-orange-500 hover:bg-orange-500/10 rounded-lg font-bold transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Montar Treino
+                </a>
+            }
         </nav>
     </aside>
 
     <main class="flex-1 flex flex-col h-screen overflow-hidden">
 
-        <header
-            class="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-800 md:justify-end md:px-8 shadow-sm z-10">
-            <button (click)="toggleMenu()" class="md:hidden text-neutral-400 hover:text-white">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
+        <header class="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-800 md:justify-end md:px-8 shadow-sm z-10">
+    <button (click)="toggleMenu()" class="md:hidden text-neutral-400 hover:text-white">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+    
+    <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+            <a routerLink="/perfil" class="text-sm font-bold text-white hover:text-orange-500 transition-colors cursor-pointer block">
+                @if (user) {
+                    {{ user.nome }}
+                } @else {
+                    Carregando...
+                }
+            </a>
+            <button (click)="sair()" class="text-xs text-red-500 hover:text-red-400 hover:underline cursor-pointer transition-colors">
+                Sair
             </button>
-            <div class="flex items-center gap-3">
-                <div class="text-right hidden sm:block">
-                    <p class="text-sm font-bold text-white">Usuário Teste</p>
-                    <a routerLink="/login" class="text-xs text-red-500 hover:underline">Sair</a>
-                </div>
-                <div
-                    class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg">
-                    UT</div>
-            </div>
-        </header>
+        </div>
+        
+        <a routerLink="/perfil" class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg hover:bg-orange-500 transition-colors cursor-pointer">
+            @if (iniciais) {
+                {{ iniciais }}
+            } @else {
+                --
+            }
+        </a>
+    </div>
+</header>
 
         <div class="flex-1 overflow-y-auto bg-neutral-900">
             <router-outlet></router-outlet>

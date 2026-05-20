@@ -10,7 +10,8 @@ import { AuthService } from '../../auth.service';
   templateUrl: './register.html',
 })
 export class Register {
-  user = { nome: '', email: '', password: '' };
+  user = { nome: '', email: '', password: '', peso_corporal: '' };
+  mensagemErro: string = '';
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -20,7 +21,7 @@ export class Register {
         alert('Conta criada! Faça login agora.');
         this.router.navigate(['/login']);
       },
-      error: (err) => alert('Erro: ' + (err.error.message || 'Falha no servidor'))
+      error: (err) => this.mensagemErro = err.error.message || 'Falha no servidor'
     });
   }
 }

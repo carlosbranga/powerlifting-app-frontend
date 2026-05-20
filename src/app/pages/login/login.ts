@@ -12,6 +12,7 @@ import { AuthService } from '../../auth.service';
 export class Login {
   // Objeto para capturar o que o usuário digita
   credenciais = { email: '', password: '' };
+  mensagemErro: string = '';
 
   constructor(
     private auth: AuthService,
@@ -19,6 +20,7 @@ export class Login {
   ) { }
 
   fazerLogin() {
+    this.mensagemErro = '';
     this.auth.login(this.credenciais).subscribe({
       next: (res: any) => {
         localStorage.setItem('token', res.access_token);
@@ -26,7 +28,7 @@ export class Login {
       },
       error: (err) => {
         console.error(err);
-        alert(err.error.message || 'Erro ao realizar login!');
+        this.mensagemErro = err.error.message || 'Erro ao realizar login!';
       }
     });
   }

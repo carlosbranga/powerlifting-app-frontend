@@ -7,7 +7,11 @@
             </h1>
             <p class="text-neutral-400 mt-2 font-medium">Software pra controlar seus treinos</p>
         </div>
-
+        @if (mensagemErro) {
+    <div class="bg-red-500/10 border border-red-500 text-red-500 text-sm font-bold p-3 rounded-lg text-center mb-4">
+        {{ mensagemErro }}
+    </div>
+}
         <form class="space-y-5" (ngSubmit)="fazerLogin()">
             <div>
                 <label for="email" class="block text-sm font-medium mb-1 text-neutral-300">E-mail</label>

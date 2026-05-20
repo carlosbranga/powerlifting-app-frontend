@@ -44,29 +44,50 @@
                 </svg>
                 Visão do Coach
             </a>
+            @if (user && user.tipo_perfil === 'treinador') {
+    <a routerLink="/gerenciar-exercicios" (click)="toggleMenu()"
+        class="flex items-center gap-3 px-4 py-3 mt-4 border border-orange-500/30 text-orange-500 hover:bg-orange-500/10 rounded-lg font-bold transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+        </svg>
+        Configurar Exercícios
+    </a>
+}
         </nav>
     </aside>
 
     <main class="flex-1 flex flex-col h-screen overflow-hidden">
 
-        <header
-            class="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-800 md:justify-end md:px-8 shadow-sm z-10">
-            <button (click)="toggleMenu()" class="md:hidden text-neutral-400 hover:text-white">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
+        <header class="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-800 md:justify-end md:px-8 shadow-sm z-10">
+    <button (click)="toggleMenu()" class="md:hidden text-neutral-400 hover:text-white">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+    
+    <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+            <a routerLink="/perfil" class="text-sm font-bold text-white hover:text-orange-500 transition-colors cursor-pointer block">
+                @if (user) {
+                    {{ user.nome }}
+                } @else {
+                    Carregando...
+                }
+            </a>
+            <button (click)="sair()" class="text-xs text-red-500 hover:text-red-400 hover:underline cursor-pointer transition-colors">
+                Sair
             </button>
-            <div class="flex items-center gap-3">
-                <div class="text-right hidden sm:block">
-                    <p class="text-sm font-bold text-white">Usuário Teste</p>
-                    <a routerLink="/login" class="text-xs text-red-500 hover:underline">Sair</a>
-                </div>
-                <div
-                    class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg">
-                    UT</div>
-            </div>
-        </header>
+        </div>
+        
+        <a routerLink="/perfil" class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg hover:bg-orange-500 transition-colors cursor-pointer">
+            @if (iniciais) {
+                {{ iniciais }}
+            } @else {
+                --
+            }
+        </a>
+    </div>
+</header>
 
         <div class="flex-1 overflow-y-auto bg-neutral-900">
             <router-outlet></router-outlet>

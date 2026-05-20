@@ -6,6 +6,10 @@ import { Instrutor } from './pages/instrutor/instrutor';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Treino } from './pages/treino/treino';
+import { Perfil } from './pages/perfil/perfil';
+import { GerenciarExercicios } from './pages/gerenciar-exercicios/gerenciar-exercicios';
+import { roleGuard } from './guards/role.guard';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +24,14 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'treino', component: Treino },
       { path: 'instrutor', component: Instrutor },
+      { path: 'perfil', component: Perfil },
+      { 
+    path: 'gerenciar-exercicios', 
+    component: GerenciarExercicios,
+    canActivate: [roleGuard] // <--- O leão de chácara está ativo aqui!
+  },
     ],
   },
+
+  
 ];

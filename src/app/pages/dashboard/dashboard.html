@@ -11,8 +11,8 @@
         <label class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-1">Movimento</label>
         <div class="relative">
             <select [(ngModel)]="exercicioSelecionado" (change)="carregarDadosReais()" class="w-full sm:w-48 px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-orange-500 appearance-none cursor-pointer">
-              @for (ex of exerciciosDisponiveis; track ex) {
-                <option [value]="ex">{{ ex }}</option>
+              @for (ex of exerciciosDisponiveis; track ex.id) {
+                <option [value]="ex.nome">{{ ex.nome }}</option>
               }
             </select>
             <svg class="w-4 h-4 text-orange-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -37,7 +37,7 @@
         Evolução: {{ exercicioSelecionado }}
     </h4>
     <div class="-ml-4 -mr-2 mt-4">
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+      <apx-chart #chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
         [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels" [fill]="chartOptions.fill"
         [colors]="chartOptions.colors" [tooltip]="chartOptions.tooltip">
       </apx-chart>
@@ -59,15 +59,15 @@
     </div>
 
     <div class="bg-neutral-800 p-6 rounded-xl border border-neutral-700 shadow-lg relative overflow-hidden group">
-        <div class="absolute -right-6 -top-6 text-blue-500/10 group-hover:text-blue-500/20 transition-colors">
-            <svg class="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+        <div class="absolute -right-6 -top-6 text-yellow-500/10 group-hover:text-yellow-500/20 transition-colors">
+            <svg class="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
         </div>
-        <p class="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-1 relative z-10">Volume Tonelagem Acumulado</p>
+        <p class="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-1 relative z-10">1RM Estimado</p>
         <div class="flex items-baseline gap-2 relative z-10">
-            <p class="text-4xl font-black text-white">{{ estatisticas.volumeTotal }}</p>
-            <p class="text-lg font-bold text-blue-500">Ton</p>
+            <p class="text-4xl font-black text-white">{{ estatisticas.rmEstimado }}</p>
+            <p class="text-lg font-bold text-yellow-500">kg</p>
         </div>
-        <p class="text-[10px] text-neutral-500 font-bold mt-2 relative z-10">Soma de (Séries × Reps × Carga) / 1000</p>
+        <p class="text-[10px] text-neutral-500 font-bold mt-2 relative z-10">Projeção de carga máxima teórica</p>
     </div>
 
     <div class="bg-neutral-800 p-6 rounded-xl border border-neutral-700 shadow-lg relative overflow-hidden group">

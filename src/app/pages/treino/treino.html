@@ -2,8 +2,8 @@
     <div class="max-w-5xl mx-auto p-4 md:p-6 space-y-6 w-full">
         
         <div class="border-b border-neutral-700 pb-4">
-            <h2 class="text-3xl font-black text-orange-500 italic uppercase tracking-tighter">Minhas Planilhas</h2>
-            <p class="text-neutral-400 text-sm mt-1">Selecione o treino prescrito pelo seu Coach para registrar suas cargas de hoje.</p>
+            <h2 class="text-3xl font-black text-orange-500 italic uppercase tracking-tighter">Meus Treinos</h2>
+            <p class="text-neutral-400 text-sm mt-1">Selecione o treino prescrito pelo seu Treinador para registrar suas cargas de hoje.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -39,7 +39,7 @@
                             <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                            Agendado para: {{ t.data_execucao ? (t.data_execucao | date:'dd/MM/yyyy') : 'Livre' }}
+                            Concluído em: {{ t.data_execucao ? (t.data_execucao | date:'dd/MM/yyyy') : 'Livre' }}
                         </p>
                     </div>
 

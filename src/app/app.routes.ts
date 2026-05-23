@@ -24,19 +24,24 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'treino', component: TreinoComponent },
-      { path: 'instrutor', component: Instrutor },
       { path: 'perfil', component: Perfil },
+      
+      // --- ROTAS BLINDADAS EXCLUSIVAS DO TREINADOR ---
       { 
-    path: 'gerenciar-exercicios', 
-    component: GerenciarExercicios,
-    canActivate: [roleGuard] 
-  },{ 
-    path: 'montar-treino', 
-    component: MontarTreino,
-    canActivate: [roleGuard] 
-  },
+        path: 'instrutor', 
+        component: Instrutor,
+        canActivate: [roleGuard]
+      },
+      { 
+        path: 'gerenciar-exercicios', 
+        component: GerenciarExercicios,
+        canActivate: [roleGuard] 
+      },
+      { 
+        path: 'montar-treino', 
+        component: MontarTreino,
+        canActivate: [roleGuard] 
+      },
     ],
   },
-
-  
 ];

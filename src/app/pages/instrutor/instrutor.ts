@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../enviroments/enviroments';
+import { environment } from '../../../enviroments/enviroments'; // Importação corrigida pro seu padrão original
 
 @Component({
   selector: 'app-instrutor',
@@ -18,20 +18,18 @@ export class Instrutor implements OnInit {
   alunos: any[] = [];
   exerciciosAPI: any[] = [];
 
-  estatisticas = { total: 0, ativos: 0, semTreino: 0 };
+  estatisticas = { total: 0, ativos: 0, semTreino: 0, pendentes: 0 };
 
-  // --- VARIÁVEIS DO FORMULÁRIO DE PRESCRIÇÃO ---
+  // Form de Montagem de Treino
   nomePlanilha: string = '';
   dropdownAberto = false;
   termoBusca = '';
   
-  // Campos do movimento atual
   exercicioSelecionado: any = null;
   qtdSeries: number | null = null;
   qtdReps: number | null = null;
   cargaSugerida: number | null = null;
 
-  // Lista temporária que guarda os movimentos antes de salvar no banco
   movimentosDoTreino: any[] = [];
 
   constructor(private http: HttpClient) {}
@@ -69,6 +67,9 @@ export class Instrutor implements OnInit {
     this.estatisticas.total = this.alunos.length;
     this.estatisticas.ativos = this.alunos.filter(a => a.treinos_count > 0).length;
     this.estatisticas.semTreino = this.alunos.filter(a => a.treinos_count === 0).length;
+    
+    // Soma dinamicamente todos os treinos não executados que vieram do banco
+    this.estatisticas.pendentes = this.alunos.reduce((soma, aluno) => soma + (aluno.treinos_pendentes_count || 0), 0);
   }
 
   get exerciciosFiltrados() {
@@ -88,25 +89,21 @@ export class Instrutor implements OnInit {
     this.termoBusca = ''; 
   }
 
-  // --- LÓGICA DE MONTAR O TREINO ---
-
   adicionarMovimento() {
-    // Validação básica
     if (!this.exercicioSelecionado || !this.qtdSeries || !this.qtdReps) {
-      alert('Selecione o exercício e preencha pelo menos as séries e repetições!');
+      alert('Selecione o exercício e preencha as séries e repetições!');
       return;
     }
 
-    // Adiciona na lista temporária
     this.movimentosDoTreino.push({
-      exercicio: this.exercicioSelecionado, // Guarda o objeto pra mostrar o nome na tela
-      exercicio_id: this.exercicioSelecionado.id, // O ID que o banco de dados precisa
+      exercicio: this.exercicioSelecionado,
+      exercicio_id: this.exercicioSelecionado.id,
       qtd_series: this.qtdSeries,
       qtd_repeticoes: this.qtdReps,
-      carga_sugerida_kg: this.cargaSugerida,
+      carga_sugerida_kg: this.cargaSugerida
     });
 
-    // Limpa os campos para o próximo movimento
+    // Reseta apenas os inputs do movimento atual para o próximo ser inserido
     this.exercicioSelecionado = null;
     this.qtdSeries = null;
     this.qtdReps = null;
@@ -127,7 +124,6 @@ export class Instrutor implements OnInit {
       return;
     }
 
-    // Monta o pacote exato que a nossa TreinoController do Laravel espera
     const payload = {
       user_id: this.alunoSelecionado.id,
       nome: this.nomePlanilha,
@@ -139,26 +135,23 @@ export class Instrutor implements OnInit {
         next: (res: any) => {
           alert('Treino prescrito com sucesso!');
           this.fecharModalCriar();
-          this.carregarAlunos(); // Recarrega para o card do aluno ficar verde (Com Treino)
+          this.carregarAlunos(); // Atualiza a tabela na mesma hora
         },
         error: (err) => {
           console.error('Erro ao salvar treino', err);
-          alert('Deu erro ao salvar no banco! Olhe o F12.');
+          alert('Erro ao salvar treino no banco de dados.');
         }
       });
   }
 
-  // --- MODAIS ---
   abrirModalCriar(aluno: any) {
     this.alunoSelecionado = aluno;
-    // Reseta tudo quando abre o modal de um novo aluno
     this.nomePlanilha = '';
     this.movimentosDoTreino = [];
     this.exercicioSelecionado = null;
     this.qtdSeries = null;
     this.qtdReps = null;
     this.cargaSugerida = null;
-    
     this.modalCriarAberto = true;
   }
   

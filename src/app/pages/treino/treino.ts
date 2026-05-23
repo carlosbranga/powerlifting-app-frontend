@@ -87,4 +87,14 @@ export class TreinoComponent implements OnInit {
         error: (err) => console.error('Erro ao registrar', err)
       });
   }
+
+  isTreinoConcluido(treino: any): boolean {
+    // Se a planilha estiver vazia (sem exercícios), não tem como estar concluída
+    if (!treino.itens || treino.itens.length === 0) {
+      return false;
+    }
+    
+    // A Mágica do .every(): Retorna TRUE apenas se a carga não for nula em 100% dos exercícios
+    return treino.itens.every((item: any) => item.carga_realizada_kg !== null);
+  }
 }

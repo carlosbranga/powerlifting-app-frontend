@@ -12,13 +12,31 @@ import { environment } from '../../../enviroments/enviroments';
   templateUrl: './treino.html',
 })
 export class TreinoComponent implements OnInit {
-  treinos: any[] = []; // Lista de todos os treinos do aluno
-  treinoSelecionado: any = null; // Treino que o aluno está executando no momento
+  treinos: any[] = []; 
+  treinoSelecionado: any = null; 
   progresso: number = 0;
+  
+  // Variável para identificar se é o Coach logado
+  tipoPerfil: string = ''; 
+
+  // Variáveis do Chat Flutuante
+  chatAberto = false;
+  mensagens = [
+    { remetente: 'Treinador', texto: 'Fala campeão! Vi que bateu PR no Agachamento hoje. Como foi a percepção de esforço? (RPE)', horario: '18:15', isTreinador: true },
+    { remetente: 'Você', texto: 'Fala mestre! Foi sofrido, acho que RPE 9, mas a técnica se manteve sólida.', horario: '18:20', isTreinador: false },
+    { remetente: 'Treinador', texto: 'Excelente! Vamos manter essa carga pro próximo microciclo. Descansa bem hoje!', horario: '18:25', isTreinador: true }
+  ];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    // Busca o perfil no localStorage para saber se é treinador ou aluno
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      this.tipoPerfil = user.tipo_perfil || '';
+    }
+    
     this.listarTreinos();
   }
 
@@ -27,7 +45,6 @@ export class TreinoComponent implements OnInit {
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  // Busca todos os treinos do aluno logado
   listarTreinos() {
     this.http.get(`${environment.apiUrl}/treinos`, { headers: this.getHeaders() })
       .subscribe({
@@ -36,7 +53,6 @@ export class TreinoComponent implements OnInit {
       });
   }
 
-  // Abre o treino selecionado buscando os detalhes completos (exercícios) do banco
   abrirTreino(id: number) {
     this.http.get(`${environment.apiUrl}/treinos/${id}`, { headers: this.getHeaders() })
       .subscribe({
@@ -48,10 +64,10 @@ export class TreinoComponent implements OnInit {
       });
   }
 
-  // Fecha o treino atual e volta para a lista
   voltarParaLista() {
     this.treinoSelecionado = null;
-    this.listarTreinos(); // Recarrega a lista para atualizar possíveis status
+    this.chatAberto = false; // Fecha o chat caso o cara volte pra lista
+    this.listarTreinos(); 
   }
 
   calcularProgresso() {
@@ -89,12 +105,13 @@ export class TreinoComponent implements OnInit {
   }
 
   isTreinoConcluido(treino: any): boolean {
-    // Se a planilha estiver vazia (sem exercícios), não tem como estar concluída
     if (!treino.itens || treino.itens.length === 0) {
       return false;
     }
-    
-    // A Mágica do .every(): Retorna TRUE apenas se a carga não for nula em 100% dos exercícios
     return treino.itens.every((item: any) => item.carga_realizada_kg !== null);
+  }
+
+  toggleChat() {
+    this.chatAberto = !this.chatAberto;
   }
 }
